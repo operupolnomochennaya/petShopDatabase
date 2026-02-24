@@ -1,0 +1,38 @@
+BEGIN;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'petshop_admin') THEN
+    CREATE ROLE petshop_admin LOGIN PASSWORD 'admin_pwd';
+  END IF;
+
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'petshop_app') THEN
+    CREATE ROLE petshop_app LOGIN PASSWORD 'app_pwd';
+  END IF;
+
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'petshop_ro') THEN
+    CREATE ROLE petshop_ro LOGIN PASSWORD 'ro_pwd';
+  END IF;
+END $$;
+
+GRANT CONNECT ON DATABASE petshop TO petshop_admin, petshop_app, petshop_ro;
+
+GRANT USAGE ON SCHEMA public TO petshop_admin, petshop_app, petshop_ro;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO petshop_admin;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO petshop_admin;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO petshop_app;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO petshop_app;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO petshop_ro;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO petshop_admin;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO petshop_admin;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO petshop_app;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE,SELECT ON SEQUENCES TO petshop_app;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO petshop_ro;
+
+COMMIT;
