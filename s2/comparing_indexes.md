@@ -6,11 +6,11 @@ SELECT count(\*) FROM pet WHERE age > 10;
 
 SELECT count(\*) FROM pet WHERE age < 3;
 
-### 3: = (SELECT) — удобно для Hash
+### 3: = (SELECT)
 
 SELECT count(\*) FROM pet WHERE status = 'healthy';
 
-### 4: %like (SELECT) — ведущий wildcard
+### 4: %like (SELECT) 
 
 SELECT id FROM pet WHERE name LIKE '%12345' LIMIT 200;
 
