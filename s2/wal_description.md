@@ -161,7 +161,7 @@ docker exec -it petshop-postgres psql -U postgres -d petshop -c "TRUNCATE wal_la
 
 ## lsn_after_bulk
 
-1/7EF75310
+1/7F08A000
 (1 row)
 
 ### вывод: Массовая вставка 10 000 строк привела к значительному росту LSN. Разница между lsn_before_bulk и lsn_after_bulk показывает объём WAL, сгенерированный операцией.
