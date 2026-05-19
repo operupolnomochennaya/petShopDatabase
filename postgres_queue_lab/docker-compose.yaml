@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: pg-queue-lab
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 112233
+      POSTGRES_DB: petShop
+    ports:
+      - "5438:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pg_queue_data:/var/lib/postgresql/data
+
+volumes:
+  pg_queue_data:
