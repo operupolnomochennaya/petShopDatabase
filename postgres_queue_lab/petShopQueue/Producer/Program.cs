@@ -84,5 +84,5 @@ while (true)
         Console.WriteLine($"Producer error: {ex.Message}");
     }
 
-    await Task.Delay(5);
+    await Task.Delay(1000);
 }
